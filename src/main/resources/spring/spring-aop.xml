@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+
+    <!--通知-->
+    <bean id="myAdvice" class="com.catcher92.demo.springdemo.interceptor.TimeInterceptor" />
+
+    <aop:config>
+        <!--定义切片-->
+        <aop:aspect id="myAspect" ref="myAdvice">
+            <!--定义切入点-->
+            <aop:pointcut id="servicePointCut" expression="execution(* com.catcher92.demo.springdemo.service..*(..))" />
+            <aop:pointcut id="controllerPointCut" expression="execution(* com.catcher92.demo.springdemo.controller..*(..))" />
+
+            <aop:before method="before" pointcut-ref="controllerPointCut" />
+            <aop:after method="after" pointcut-ref="controllerPointCut" />
+            <aop:around method="around" pointcut-ref="controllerPointCut" />
+            <aop:around method="around" pointcut-ref="servicePointCut" />
+        </aop:aspect>
+    </aop:config>
+
+</beans>
