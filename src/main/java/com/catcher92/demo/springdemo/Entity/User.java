@@ -1,9 +1,13 @@
 package com.catcher92.demo.springdemo.Entity;
 
+import java.io.Serializable;
+
 /**
  * Created by caoxuedong on 2017/2/10.
  */
-public class User {
+public class User implements Serializable{
+
+    private static final long serialVersionUID = 709802288106398607L;
 
     private int id;
 
