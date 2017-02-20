@@ -22,6 +22,7 @@
         <jedis_version>2.7.3</jedis_version>
         <java_version>1.8</java_version>
         <maven_compiler_plugin_version>2.3.2</maven_compiler_plugin_version>
+        <spring_session_version>1.0.2.RELEASE</spring_session_version>
     </properties>
 
     <dependencyManagement>
@@ -89,6 +90,17 @@
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-redis</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>jcl-over-slf4j</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session</artifactId>
+            <version>${spring_session_version}</version>
         </dependency>
         <!--*********************************************spring end*********************************************-->
         <dependency>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd" default-lazy-init="false">
+
+    <context:annotation-config/>
+    <bean class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">
+        <property name="maxInactiveIntervalInSeconds" value="${session.maxInactiveIntervalInSeconds}">
+            <description>
+                如果要设置Session的过期时间，通常我们会在web.xml文件中进行设置：
+                但是，使用Spring Session托管session后，web.xml的设置将会失效。
+                SpringSession专门提供了maxInactiveIntervalInSeconds属性进行设置：session的过期时间维护
+                默认值：1800 秒
+            </description>
+        </property>
+    </bean>
+
+</beans>

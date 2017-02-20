@@ -23,7 +23,7 @@
         <property name="usePool" value="${redis.usePool}" />
     </bean>
 
-    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+    <bean id="sessionRedisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
         <property name="connectionFactory" ref="jedisConnFactory" />
         <!--定义key的序列化，如果不定义则默认为JdkSerializationRedisSerializer-->
         <property name="keySerializer">
