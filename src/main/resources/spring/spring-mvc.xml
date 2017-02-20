@@ -9,9 +9,15 @@
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />
     </context:component-scan>
+
     <mvc:annotation-driven/>
+
+    <!--静态资源映射-->
+    <mvc:resources mapping="/static/**" location="/static/" />
+
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
+    
 </beans>
