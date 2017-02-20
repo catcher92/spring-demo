@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="userRealm" class="com.catcher92.demo.springdemo.shiro.realm.UserRealm" />
+
+    <!--安全管理器-->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="userRealm"/>
+    </bean>
+
+    <!--shiroFilter-->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager" />
+        <!--登陆页面-->
+        <property name="loginUrl" value="/login" />
+        <!--登录成功页面-->
+        <property name="successUrl" value="/" />
+        <property name="unauthorizedUrl" value="/failture.jsp" />
+        <property name="filterChainDefinitions">
+            <value>
+                /login/** = anon
+                /logout = logout
+                /static/** = anon
+                /** = user
+            </value>
+        </property>
+    </bean>
+</beans>
