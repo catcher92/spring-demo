@@ -17,7 +17,7 @@
             <label for="username">用户名：</label><input name="username" id="username"><br>
             <label for="password">密&nbsp;码：</label><input type="password" name="password" id="password"><br>
             <input id="rememberMe" type="checkbox"> 下次自动登录<br>
-            <input type="hidden" name="rememberMe" />
+            <input type="hidden" name="rememberMe" value="false" />
             <input type="submit">
         </form>
     </div>
