@@ -54,4 +54,14 @@
     <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
         <property name="securityManager" ref="securityManager" />
     </bean>
+
+    <!--角色异常处理-->
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <!--此处指定jsp名会自动加上prefix和suffix-->
+                <prop key="org.apache.shiro.authz.UnauthorizedException">/unauthorized</prop>
+            </props>
+        </property>
+    </bean>
 </beans>
