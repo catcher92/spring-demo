@@ -1,7 +1,10 @@
 package com.catcher92.demo.springdemo.controller;
 
 import com.catcher92.demo.springdemo.Entity.User;
+import com.catcher92.demo.springdemo.constant.UserConstant;
 import com.catcher92.demo.springdemo.service.UserService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +19,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/user")
+@RequiresRoles(UserConstant.ROLES_ADMIN)
 public class UserController {
 
     private static final String preffix = "user/";
@@ -23,6 +27,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @RequiresPermissions(value = {UserConstant.PERMISSIONS_USER_ALL, UserConstant.PERMISSIONS_USER_ADD })
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String add(){
         return preffix+"userAdd";
@@ -34,6 +39,7 @@ public class UserController {
         return "redirect:/user/get/"+id;
     }
 
+    @RequiresPermissions(value = {UserConstant.PERMISSIONS_USER_ALL, UserConstant.PERMISSIONS_USER_GET })
     @RequestMapping("/get/{id}")
     public String get(@PathVariable("id") int id, Model model){
         User user = userService.find(id);
@@ -41,6 +47,7 @@ public class UserController {
         return preffix+"userView";
     }
 
+    @RequiresPermissions(value = {UserConstant.PERMISSIONS_USER_ALL, UserConstant.PERMISSIONS_USER_GET })
     @RequestMapping("/getAll")
     public String getAll(Model model){
         List<User> users = userService.findAll();
@@ -48,6 +55,7 @@ public class UserController {
         return preffix+"userList";
     }
 
+    @RequiresPermissions(value = {UserConstant.PERMISSIONS_USER_ALL, UserConstant.PERMISSIONS_USER_UPDATE })
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String update(@PathVariable("id") int id, Model model){
         User user = userService.find(id);
@@ -59,6 +67,7 @@ public class UserController {
         }
     }
 
+    @RequiresPermissions(value = {UserConstant.PERMISSIONS_USER_ALL, UserConstant.PERMISSIONS_USER_UPDATE })
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     public String update(@PathVariable("id") int id, User user, Model model){
         userService.del(id);

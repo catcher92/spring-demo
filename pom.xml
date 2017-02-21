@@ -160,6 +160,11 @@
             <artifactId>shiro-spring</artifactId>
             <version>${shiro_version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-ehcache</artifactId>
+            <version>${shiro_version}</version>
+        </dependency>
         <!--*********************************************shiro end*********************************************-->
         <dependency>
             <groupId>junit</groupId>
