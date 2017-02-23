@@ -10,6 +10,7 @@
 
     <properties>
         <servlet_version>3.1.0</servlet_version>
+        <jsp_api_version>2.1</jsp_api_version>
         <jstl_version>1.2</jstl_version>
         <spring_bom_version>4.2.1.RELEASE</spring_bom_version>
         <slf4j_version>1.7.12</slf4j_version>
@@ -24,6 +25,10 @@
         <maven_compiler_plugin_version>2.3.2</maven_compiler_plugin_version>
         <spring_session_version>1.0.2.RELEASE</spring_session_version>
         <shiro_version>1.2.3</shiro_version>
+
+        <maven-surefire-plugin_version>2.17</maven-surefire-plugin_version>
+        <maven_source_plugin_version>2.1.1</maven_source_plugin_version>
+        <maven_war_plugin_version>2.1.1</maven_war_plugin_version>
     </properties>
 
     <dependencyManagement>
@@ -61,6 +66,12 @@
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>${servlet_version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>${jsp_api_version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -175,7 +186,35 @@
     </dependencies>
 
     <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>${maven_war_plugin_version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin_version}</version>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven_source_plugin_version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
