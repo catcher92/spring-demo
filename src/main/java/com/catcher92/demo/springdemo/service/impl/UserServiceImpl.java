@@ -26,11 +26,6 @@ public class UserServiceImpl implements UserService{
     }
 
     public int del(int id) {
-        try {
-            Thread.sleep(50);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         users.remove(id);
         return 1;
     }

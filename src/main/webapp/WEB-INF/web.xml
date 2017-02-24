@@ -10,6 +10,11 @@
         <param-value>classpath:applicationContext.xml</param-value>
     </context-param>
 
+    <!--如果没有该listener则spring mvc容器无法获取父容器applicationContext中bean-->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
     <!--设置字符集 start-->
     <filter>
         <filter-name>characterEncoding</filter-name>

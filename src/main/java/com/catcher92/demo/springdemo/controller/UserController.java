@@ -61,19 +61,14 @@ public class UserController {
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     public String update(@PathVariable("id") int id, User user, Model model){
-        userService.del(id);
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         userService.update(user);
-        try {
-            Thread.sleep(200);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         model.addAttribute(user);
         return "redirect:/user/get/"+id;
+    }
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public String delete(@PathVariable("id") int id){
+        userService.del(id);
+        return "redirect:/user/getAll";
     }
 }
