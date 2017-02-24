@@ -31,10 +31,10 @@ public class UserRealm extends AuthorizingRealm{
             SimpleAuthenticationInfo info = new SimpleAuthenticationInfo();
             SimplePrincipalCollection collection = new SimplePrincipalCollection();
             if ("111111".equals(password)) {
-                collection.add("test1", getName());
+                collection.add(userName, getName());
             } else if ("123456".equals(password)) {
+                collection.add(userName, getName());
                 collection.add("test2", getName());
-                collection.add("test2@qq.com", getName());
             }
             info.setPrincipals(collection);
             info.setCredentials(password);
