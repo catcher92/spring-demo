@@ -1,13 +1,13 @@
 package com.catcher92.demo.springdemo.controller;
 
-import com.catcher92.demo.springdemo.Entity.User;
+import com.catcher92.demo.springdemo.common.controller.BaseController;
+import com.catcher92.demo.springdemo.entity.Page;
+import com.catcher92.demo.springdemo.entity.User;
 import com.catcher92.demo.springdemo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/user")
-public class UserController {
+public class UserController extends BaseController{
 
     private static final String preffix = "user/";
 
@@ -29,27 +29,41 @@ public class UserController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @ResponseBody
     public String add(User user){
-        int id = userService.add(user);
-        return "redirect:/user/get/"+id;
+        Long id = userService.add(user);
+        if (id != null) {
+            return "操作成功";
+        }
+        return "操作失败";
     }
 
     @RequestMapping("/get/{id}")
-    public String get(@PathVariable("id") int id, Model model){
+    public String get(@PathVariable("id") Long id, Model model){
         User user = userService.find(id);
         model.addAttribute("user", user);
         return preffix+"userView";
     }
 
-    @RequestMapping("/getAll")
+    @RequestMapping(value = {"","index","/getAll"})
     public String getAll(Model model){
         List<User> users = userService.findAll();
         model.addAttribute("users", users);
         return preffix+"userList";
     }
 
+    @RequestMapping(value = "/getAll", method = RequestMethod.POST)
+    @ResponseBody
+    public Page getAll (@RequestParam(required = false, defaultValue = "10") int limit, @RequestParam(required = false, defaultValue = "0")int offset){
+        List<User> users = userService.findAll();
+        Page page = new Page();
+        page.setTotal(100);
+        page.setRows(users);
+        return page;
+    }
+
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
-    public String update(@PathVariable("id") int id, Model model){
+    public String update(@PathVariable("id") Long id, Model model){
         User user = userService.find(id);
         if (user == null) {
             return preffix+"userAdd";
@@ -67,8 +81,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public String delete(@PathVariable("id") int id){
+    public String delete(@PathVariable("id") Long id){
         userService.del(id);
-        return "redirect:/user/getAll";
+        return "redirect:/user/index";
     }
 }

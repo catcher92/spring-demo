@@ -1,6 +1,6 @@
 package com.catcher92.demo.springdemo.service.impl;
 
-import com.catcher92.demo.springdemo.Entity.User;
+import com.catcher92.demo.springdemo.entity.User;
 import com.catcher92.demo.springdemo.util.UserUtil;
 import com.catcher92.demo.springdemo.service.UserService;
 import org.springframework.stereotype.Service;
@@ -16,26 +16,26 @@ import java.util.Map;
 @Service
 public class UserServiceImpl implements UserService{
 
-    private static Map<Integer, User> users = new HashMap<Integer, User>();
+    private static Map<Long, User> users = new HashMap<>();
 
-    public int add(User user) {
-        int id = UserUtil.getId();
+    public Long add(User user) {
+        Long id = UserUtil.getId();
         user.setId(id);
         users.put(id, user);
         return id;
     }
 
-    public int del(int id) {
+    public int del(Long id) {
         users.remove(id);
         return 1;
     }
 
-    public User find(int id) {
+    public User find(Long id) {
         return users.get(id);
     }
 
     public List<User> findAll() {
-        List<User> list = new ArrayList<User>();
+        List<User> list = new ArrayList<>();
         list.addAll(users.values());
         return list;
     }

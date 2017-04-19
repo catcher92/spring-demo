@@ -7,7 +7,7 @@ public class UserUtil {
 
     private static int id;
 
-    public static int getId() {
-        return ++id;
+    public static Long getId() {
+        return Long.valueOf(++id);
     }
 }

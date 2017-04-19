@@ -1,6 +1,6 @@
 package com.catcher92.demo.springdemo.service;
 
-import com.catcher92.demo.springdemo.Entity.User;
+import com.catcher92.demo.springdemo.entity.User;
 
 import java.util.List;
 
@@ -9,11 +9,11 @@ import java.util.List;
  */
 public interface UserService {
 
-    public int add(User user);
+    public Long add(User user);
 
-    public int del(int id);
+    public int del(Long id);
 
-    public User find(int id);
+    public User find(Long id);
 
     public List<User> findAll();
 
