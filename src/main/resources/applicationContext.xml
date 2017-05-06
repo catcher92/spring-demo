@@ -18,4 +18,5 @@
     <import resource="classpath:spring/spring-redis.xml" />
     <import resource="classpath:spring/spring-session.xml" />
     <import resource="classpath:spring/spring-shiro.xml" />
+    <import resource="classpath:spring/spring-mongo.xml" />
 </beans>

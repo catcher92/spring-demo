@@ -1,6 +1,6 @@
 package com.catcher92.demo.springdemo.service;
 
-import com.catcher92.demo.springdemo.Entity.User;
+import com.catcher92.demo.springdemo.entity.User;
 
 import java.util.List;
 

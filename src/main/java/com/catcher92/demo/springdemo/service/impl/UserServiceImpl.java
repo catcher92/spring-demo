@@ -1,6 +1,6 @@
 package com.catcher92.demo.springdemo.service.impl;
 
-import com.catcher92.demo.springdemo.Entity.User;
+import com.catcher92.demo.springdemo.entity.User;
 import com.catcher92.demo.springdemo.util.RedisUtil;
 import com.catcher92.demo.springdemo.util.UserUtil;
 import com.catcher92.demo.springdemo.service.UserService;
@@ -23,9 +23,9 @@ public class UserServiceImpl implements UserService{
 
     public int add(User user) {
         int id = UserUtil.getId();
-        user.setId(id);
+        user.setUserId(Long.valueOf(id));
         users.put(id, user);
-        template.opsForValue().set(RedisUtil.getKey(User.class, user.getId()), user, 5, TimeUnit.MINUTES);
+        template.opsForValue().set(RedisUtil.getKey(User.class, user.getUserId().intValue()), user, 5, TimeUnit.MINUTES);
         return id;
     }
 
@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService{
         if (null == user) {
             user = users.get(id);
             if (null != user) {
-                template.opsForValue().set(RedisUtil.getKey(User.class, user.getId()), user, 5, TimeUnit.MINUTES);
+                template.opsForValue().set(RedisUtil.getKey(User.class, user.getUserId().intValue()), user, 5, TimeUnit.MINUTES);
             }
         }
         return user;
@@ -58,14 +58,14 @@ public class UserServiceImpl implements UserService{
             // 添加list
             template.opsForList().leftPush(RedisUtil.getListKey(User.class, 0), user);
             // 添加hash
-            template.opsForHash().put(RedisUtil.getHashKey(User.class, 0), RedisUtil.getKey(User.class, user.getId()), user);
+            template.opsForHash().put(RedisUtil.getHashKey(User.class, 0), RedisUtil.getKey(User.class, user.getUserId().intValue()), user);
         });
         return list;
     }
 
     public int update(User user) {
-        users.put(user.getId(), user);
-        template.delete(RedisUtil.getKey(User.class, user.getId()));
+        users.put(user.getUserId().intValue(), user);
+        template.delete(RedisUtil.getKey(User.class, user.getUserId().intValue()));
         return 1;
     }
 }
